@@ -1,0 +1,45 @@
+<h1>ExpressShop</h1>
+<nav>
+  <a href="">Home</a>
+  <a href="">Profile</a>
+  <a href="">Sign Up</a>
+  <a href="">About</a>
+</nav>
+
+<h2>Shopping Cart</h2>
+
+<form #cartForm="ngForm" (ngSubmit)="addItem(cartForm)">
+  <label for="">Product</label>
+  <input type="text" ngModel name="product">
+
+  <label for="">Price</label>
+  <input type="text" ngModel name="price">
+
+  <label for="">Quantity</label>
+  <input type="text" ngModel name="quantity">
+
+  <button>Add To Cart</button>
+</form>
+
+<div *ngFor="let item of cartitems,index as i">
+  <p>{{ item.id }}</p>
+  <p>{{ item.product }}</p>
+  <p>{{ item.price }}</p>
+  <p>{{ item.quantity }}</p>
+  <button (click)="deleteItem(item.id)">X</button>
+  <button (click)="toggleForm(i)">Edit</button>
+
+  <form *ngIf="item.beingUpdated" #updateForm="ngForm" (ngSubmit)="[updateItem(id), toggleForm(i)]">
+    <label for="">Product</label>
+    <input type="text" [(ngModel)]="item.product" name="product">
+
+    <label for="">Price</label>
+    <input type="text" [(ngModel)]="item.price" name="price">
+
+    <label for="">Quantity</label>
+    <input type="text" [(ngModel)]="item.quantity" name="quantity">
+
+    <button>Save Item</button>
+  </form>
+
+</div>
